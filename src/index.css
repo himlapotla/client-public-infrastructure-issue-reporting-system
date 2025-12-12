@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.light-mode {
+  background-color: white;
+  color: black;
+}
+.light-mode form {
+  background-color: white;
+  color: black;
+}
+.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+.dark-mode form {
+  background-color: #2a2a2a; 
+  color: white;
+}
+
+.dark-mode select {
+  background-color: #2a2a2a; 
+  color: white;
+}
+
+.light-mode select {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode .card {
+  background-color: #2b2b2b;
+  color: white;
+}
+
+.light-mode .card {
+  background-color: white;
+  color: black;
+}
