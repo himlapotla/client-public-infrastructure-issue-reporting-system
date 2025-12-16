@@ -4,6 +4,7 @@ import PrivateRoute from "../Provider/PrivateRoute";
 import { AllContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Link } from "react-router";
 
 const IssueCard = ({ report }) => {
     const { user } = useContext(AllContext)
@@ -95,9 +96,11 @@ const IssueCard = ({ report }) => {
                     } {upvotes}
                 </span>
 
-                <button className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700">
+                <Link to={`/issueDetails/${report._id}`}>
+                <button  className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700">
                     View Details
                 </button>
+                </Link>
             </div>
         </div>
     )
