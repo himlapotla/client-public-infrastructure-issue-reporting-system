@@ -13,7 +13,7 @@ const Navbar = () => {
 
     const links = <>
         <Link to={'/'}> <p className='font-semibold'>Home</p> </Link>
-        <Link to={'/allVehicles'}> <p className='font-semibold'>All Issues</p> </Link>
+        <Link to={'/allIssues'}> <p className='font-semibold'>All Issues</p> </Link>
     </>
 
     const handleOut = () => {

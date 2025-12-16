@@ -13,6 +13,10 @@ import Register from './Componantes/MainComponents/Register.jsx';
 import DashboardLayout from './Componantes/Layout/DashboardLayout.jsx';
 import Profile from './Componantes/DashboardLinks/Profile.jsx';
 import ManageStaff from './Componantes/AdminPages/ManageStaff.jsx';
+import ReportIssue from './Componantes/UserPages/ReportIssue.jsx';
+import MyIssue from './Componantes/UserPages/MyIssue.jsx';
+import Issue from './Componantes/MainComponents/Issue.jsx';
+import PrivateRoute from './Componantes/Provider/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,11 +31,15 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register> </Register>
       },
+      {
+        path: '/allIssues',
+        element: <Issue> </Issue>
+      }
     ]
   },
   {
     path: '/dashboard',
-    element :<DashboardLayout> </DashboardLayout>,
+    element: <DashboardLayout> </DashboardLayout>,
     children: [
       {
         path: 'profile',
@@ -42,6 +50,17 @@ const router = createBrowserRouter([
       {
         path: 'Manage-staff',
         element: <ManageStaff> </ManageStaff>
+      },
+
+
+      //user;s routs.......................................
+      {
+        path: 'Report-issue',
+        element: <ReportIssue> </ReportIssue>
+      },
+      {
+        path: 'All-my-issues',
+        element: <MyIssue> </MyIssue>
       }
     ]
   }

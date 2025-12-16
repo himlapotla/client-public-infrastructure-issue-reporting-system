@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const Login = () => {
 
-  const { logIn, setUser, setMail, saveOrUpdateUser, googleRegister } = useContext(AllContext)
+  const { logIn, setUser, setMail, saveOrUpdateUser, googleRegister, role } = useContext(AllContext)
   const navigate = useNavigate()
   const [err, setErr] = useState(null)
   const [show, setShow] = useState(false)
@@ -45,8 +45,16 @@ const Login = () => {
     logIn(email, pass)
       .then((res) => {
         setUser(res.user)
-        navigate(`${location.state ? location.state : '/'}`)
-        toast
+        if (role === "staff") {
+          navigate('/dashboard')
+          toast.success("You are loged in successfully.")
+        }
+        else{
+          navigate(`${location.state ? location.state : '/'}`)
+          toast.success("You are loged in successfully.")
+        }
+      
+        
       })
       .catch((err) => {
         setErr(err)
