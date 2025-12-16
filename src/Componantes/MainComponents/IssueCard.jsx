@@ -34,29 +34,27 @@ const IssueCard = ({ report }) => {
 
             setUpvotes(prev => prev + 1)
             toast.success("Upvoted!")
-        } 
+        }
         catch (err) {
             console.log(err.message);
-            
+
             toast.error(err.response?.data?.message || "Upvote failed")
         }
     };
 
 
     return (
-        <div className="rounded-xl border p-4 shadow-sm dark:border-gray-700">
+        <div className="rounded-xl border p-4 shadow-sm dark:border-gray-700 space-y-5">
 
-            {/* Image */}
             {image && (
                 <img
                     src={image}
                     alt="Issue"
-                    className="h-40 w-full rounded-lg object-cover"
+                    className="h-60 w-full rounded-lg object-cover"
                 />
             )}
 
-            {/* Content */}
-            <div className="mt-3 space-y-2">
+            <div className="mt-3">
                 <h2 className="text-lg font-bold">{title}</h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                     {description}
@@ -86,20 +84,22 @@ const IssueCard = ({ report }) => {
                 </span>
             </div>
 
-
-
-            {/* Footer */}
             <div className="flex items-center justify-between pt-3">
-                <span className="text-sm font-medium">
-                    {
-                        user ? <button onClick={handleUpvote} className="btn"> upvote </button> : <button className="disabled:"> upvote </button>
-                    } {upvotes}
-                </span>
+                <div className="text-sm font-medium flex items-center gap-2">
+                    <div>
+                        {
+                            user ? <button onClick={handleUpvote} className="btn"> upvote </button> : <button className="disabled:"> upvote </button>
+                        }
+                    </div>
+                    <div className="text-2xl font-bold text-green-500">
+                        {upvotes}
+                    </div>
+                </div>
 
                 <Link to={`/issueDetails/${report._id}`}>
-                <button  className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700">
-                    View Details
-                </button>
+                    <button className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700">
+                        View Details
+                    </button>
                 </Link>
             </div>
         </div>

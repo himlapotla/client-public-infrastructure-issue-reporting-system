@@ -18,6 +18,7 @@ import MyIssue from './Componantes/UserPages/MyIssue.jsx';
 import Issue from './Componantes/MainComponents/Issue.jsx';
 import PrivateRoute from './Componantes/Provider/PrivateRoute.jsx';
 import IssueDetails from './Componantes/MainComponents/IssueDetails.jsx';
+import Edit from './Componantes/MainComponents/Edit.jsx';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/issueDetails/:id',
         element: <PrivateRoute> <IssueDetails> </IssueDetails> </PrivateRoute>,
+      },
+      {
+        path: '/edit/:id',
+        element: <Edit> </Edit>,
       }
     ]
   },

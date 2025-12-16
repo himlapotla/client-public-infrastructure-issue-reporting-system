@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AllContext } from "../Provider/AuthProvider";
@@ -14,12 +14,13 @@ const stripePromise = loadStripe(
 );
 
 const IssueDetails = () => {
-    const { id } = useParams();
-    const { user } = useContext(AllContext);
+    const { id } = useParams()
+    const { user } = useContext(AllContext)
+    const navigate = useNavigate()
 
-    const [issue, setIssue] = useState(null);
-    const [clientSecret, setClientSecret] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [issue, setIssue] = useState(null)
+    const [clientSecret, setClientSecret] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         axios
@@ -33,6 +34,21 @@ const IssueDetails = () => {
                 setLoading(false);
             });
     }, [id]);
+
+    const handleDelete = async () => {
+        const confirm = window.confirm("Are you sure you want to delete this report?");
+        if (!confirm) return;
+
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/reports/${id}`);
+            toast.success("Report deleted successfully.");
+            navigate('/allIssues');
+        }
+        catch (err) {
+            console.error(err);
+            toast.error(err.response?.data?.message || "Failed to delete report.");
+        }
+    }
 
     const handleBoost = async () => {
         try {
@@ -57,17 +73,16 @@ const IssueDetails = () => {
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-6">
 
-            {/* Issue Card */}
             <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow">
                 {issue.image && (
                     <img
                         src={issue.image}
                         alt="Issue"
-                        className="rounded-lg mb-4 w-full h-64 object-cover"
+                        className="rounded-lg mb-4 w-full h-74 object-cover"
                     />
                 )}
 
-                <h1 className="text-2xl font-bold">{issue.title}</h1>
+                <h1 className="text-2xl font-bold"> {issue.title} </h1>
                 <p className="text-gray-600 dark:text-gray-400 mt-2">
                     {issue.description}
                 </p>
@@ -83,25 +98,24 @@ const IssueDetails = () => {
                 </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap gap-3 bg-white dark:bg-gray-900 p-6 rounded-xl shadow">
 
-                {isOwner && issue.status === "pending" && (
-                    <button className="btn">Edit</button>
-                )}
+                {(isOwner && issue.status === "pending") ? (
+                    <Link to={`/edit/${id}`}> <button className="btn">Edit</button> </Link>
+                ) : <button disabled className="btn"> Edit </button>}
 
-                {isOwner && (
-                    <button className="btn bg-red-600 text-white">Delete</button>
-                )}
+                {isOwner ? (
+                    <button onClick={handleDelete} className="btn bg-red-600 text-white">Delete</button>
+                ) : <button disabled className="btn"> Delete </button>}
 
-                {issue.priority !== "high" && (
+                {isOwner && issue.priority !== "high" ? (
                     <button
                         onClick={handleBoost}
                         className="btn bg-green-600 text-white"
                     >
-                        Boost Issue (100৳)
+                        Boost Issue (100tk)
                     </button>
-                )}
+                ) : <button disabled className="btn"> Boost Issue (100tk) </button>}
             </div>
 
             {clientSecret && (
