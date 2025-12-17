@@ -159,9 +159,9 @@ const AllIssue = () => {
             </div>
 
             {selectedIssue && (
-                <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+                <div className="fixed inset-0  bg-opacity-40 flex items-center justify-center z-50">
                     <div className="bg-white rounded-xl p-6 w-96 shadow-lg animate-fadeIn">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                        <h3 className="text-lg font-semibold mb-4 ">
                             Assign Staff
                         </h3>
 

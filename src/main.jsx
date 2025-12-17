@@ -20,6 +20,7 @@ import PrivateRoute from './Componantes/Provider/PrivateRoute.jsx';
 import IssueDetails from './Componantes/MainComponents/IssueDetails.jsx';
 import Edit from './Componantes/MainComponents/Edit.jsx';
 import AllIssue from './Componantes/AdminPages/AllIssue.jsx';
+import AllAssignedIssues from './Componantes/StaffPages.jsx/AllAssignedIssues.jsx';
 
 const router = createBrowserRouter([
   {
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
       },
 
 
-      //user;s routs.......................................
+      //user's routs.......................................
       {
         path: 'Report-issue',
         element: <ReportIssue> </ReportIssue>
@@ -76,6 +77,13 @@ const router = createBrowserRouter([
       {
         path: 'All-my-issues',
         element: <MyIssue> </MyIssue>
+      },
+
+
+      //staff's from here.............................................
+      {
+        path: 'All-assigned-issues',
+        element: <AllAssignedIssues> </AllAssignedIssues>
       }
     ]
   }
