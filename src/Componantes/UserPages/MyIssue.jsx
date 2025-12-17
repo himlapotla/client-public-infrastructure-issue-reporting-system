@@ -1,106 +1,93 @@
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { AllContext } from "../Provider/AuthProvider";
-import { useNavigate } from "react-router";
-import EditModal from "./EditModal";
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import { AllContext } from '../Provider/AuthProvider'
+import { Link } from 'react-router'
 
 const MyIssue = () => {
-    const { user } = useContext(AllContext);
-    const navigate = useNavigate();
-    const [issues, setIssues] = useState([]);
-    const [selectedIssue, setSelectedIssue] = useState(null);
-    const [filters, setFilters] = useState({ status: "", category: "" });
 
-    const fetchIssues = async () => {
+  const [reports, setReports] = useState([])
+  const [loading, setLoading] = useState(false)
+  const { user } = useContext(AllContext)
+
+  const handleDelete = async (id) => {
+    await axios.delete(`/reports/${id}`)
+    refetch()
+  }
+
+
+  useEffect(() => {
+    if (!user?.email) return
+
+    const fetchMyReports = async () => {
+      try {
+        setLoading(true)
+
         const res = await axios.get(
-            `${import.meta.env.VITE_API_URL}/my-reports`,
-            { params: { email: user.email, ...filters } }
-        );
-        setIssues(res.data);
-    };
+          `${import.meta.env.VITE_API_URL}/my-reports?email=${user.email}`
+        )
+        const data = Array.isArray(res.data) ? res.data : []
+        setReports(data)
 
-    useEffect(() => {
-        if (user?.email) fetchIssues();
-    }, [user, filters]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
 
-    const handleDelete = async (id) => {
-        if (!confirm("Delete this issue?")) return;
-        await axios.delete(`${import.meta.env.VITE_API_URL}/reports/${id}`);
-        setIssues(prev => prev.filter(issue => issue._id !== id));
-    };
+    }
 
-    return (
-        <div className="p-6">
-            {/* Filters */}
-            <div className="flex gap-4 mb-4">
-                <select onChange={e => setFilters({ ...filters, status: e.target.value })}>
-                    <option value="">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="resolved">Resolved</option>
-                </select>
+    fetchMyReports()
 
-                <select onChange={e => setFilters({ ...filters, category: e.target.value })}>
-                    <option value="">All Category</option>
-                    <option value="Road">Road</option>
-                    <option value="Water">Water</option>
-                    <option value="Electricity">Electricity</option>
-                </select>
-            </div>
+  }, [user?.email,])
 
-            {/* Table */}
-            <table className="w-full border">
-                <thead>
-                    <tr className="bg-gray-100">
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th>Category</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {issues.map(issue => (
-                        <tr key={issue._id} className="border">
-                            <td>{issue.title}</td>
-                            <td>{issue.status}</td>
-                            <td>{issue.category}</td>
-                            <td className="flex gap-2">
-                                {issue.status === "pending" && (
-                                    <button onClick={() => setSelectedIssue(issue)} className="btn">
-                                        Edit
-                                    </button>
-                                )}
-                                <button
-                                    onClick={() => handleDelete(issue._id)}
-                                    className="btn bg-red-600 text-white"
-                                >
-                                    Delete
-                                </button>
-                                <button
-                                    onClick={() => navigate(`/report/${issue._id}`)}
-                                    className="btn bg-green-600 text-white"
-                                >
-                                    View
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+  return (
+    <div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reports.map(report => (
+            <tr key={report._id}>
+              <td>{report.title}</td>
+              <td>{report.category}</td>
+              <td>{report.status}</td>
+              <td className="flex gap-2">
+                {report.status === 'pending' && (
+                  <button
+                    className="btn btn-xs btn-warning"
+                    onClick={() => openEditModal(report)}
+                  >
+                    Edit
+                  </button>
+                )}
 
-            {selectedIssue && (
-                <EditModal
-                    issue={selectedIssue}
-                    onClose={() => setSelectedIssue(null)}
-                    onUpdate={(updated) => {
-                        setIssues(prev =>
-                            prev.map(i => i._id === updated._id ? updated : i)
-                        );
-                        setSelectedIssue(null);
-                    }}
-                />
-            )}
-        </div>
-    );
-};
+                <button
+                  className="btn btn-xs btn-error"
+                  onClick={() => handleDelete(report._id)}
+                >
+                  Delete
+                </button>
 
-export default MyIssue;
+                <Link
+                  to={`/reports/${report._id}`}
+                  className="btn btn-xs btn-info"
+                >
+                  View
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+    </div>
+  )
+}
+
+export default MyIssue
