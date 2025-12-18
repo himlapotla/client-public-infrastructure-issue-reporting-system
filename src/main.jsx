@@ -21,12 +21,17 @@ import IssueDetails from './Componantes/MainComponents/IssueDetails.jsx';
 import Edit from './Componantes/MainComponents/Edit.jsx';
 import AllIssue from './Componantes/AdminPages/AllIssue.jsx';
 import AllAssignedIssues from './Componantes/StaffPages.jsx/AllAssignedIssues.jsx';
+import Home from './Componantes/MainComponents/Home.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePageLayout> </HomePageLayout>,
     children: [
+      {
+        index: true,
+        element: <Home> </Home>
+      },
       {
         path: '/login',
         element: <Login> </Login>
