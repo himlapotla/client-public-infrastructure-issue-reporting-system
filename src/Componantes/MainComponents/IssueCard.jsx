@@ -4,11 +4,12 @@ import PrivateRoute from "../Provider/PrivateRoute";
 import { AllContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const IssueCard = ({ report }) => {
     const { user } = useContext(AllContext)
     const [upvotes, setUpvotes] = useState(report.upvoteCount)
+    const navigate = useNavigate()
     const {
         title,
         description,
@@ -62,7 +63,7 @@ const IssueCard = ({ report }) => {
 
             </div>
 
-            <div className="grid grid-cols-2 gap-y-1 gap-x-3 text-sm leading-tight">
+            <div className="grid grid-cols-2 gap-y-2 gap-x-3 text-sm leading-tight">
                 <span className="font-medium text-gray-600">Category</span>
                 <span className="w-fit rounded bg-blue-100 px-2 py-0.5 text-blue-700">
                     {category}
@@ -88,7 +89,7 @@ const IssueCard = ({ report }) => {
                 <div className="text-sm font-medium flex items-center gap-2">
                     <div>
                         {
-                            user ? <button onClick={handleUpvote} className="btn"> upvote </button> : <button className="disabled:"> upvote </button>
+                            <button onClick={handleUpvote} className="btn bg-amber-500 text-white hover:bg-amber-600"> upvote </button>
                         }
                     </div>
                     <div className="text-2xl font-bold text-green-500">
@@ -96,8 +97,8 @@ const IssueCard = ({ report }) => {
                     </div>
                 </div>
 
-                <Link to={`/issueDetails/${report._id}`}>
-                    <button className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700">
+                <Link to={`/issueDetails/${report._id}?value=${upvotes}`}>
+                    <button className="rounded bg-blue-600 px-3 py-2 text-sm text-white hover:bg-blue-700">
                         View Details
                     </button>
                 </Link>

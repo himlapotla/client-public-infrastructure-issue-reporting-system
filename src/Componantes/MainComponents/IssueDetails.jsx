@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AllContext } from "../Provider/AuthProvider";
@@ -17,6 +17,8 @@ const IssueDetails = () => {
     const { id } = useParams()
     const { user } = useContext(AllContext)
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const upvote = searchParams.get('value')
 
     const [issue, setIssue] = useState(null)
     const [clientSecret, setClientSecret] = useState(null)
@@ -95,6 +97,9 @@ const IssueDetails = () => {
                     <span className="badge bg-red-100 text-red-800">
                         {issue.status}
                     </span>
+                </div>
+                <div className="py-2">
+                    <p className="text-[17px]">total upvote : <span className="text-green-500 font-bold"> {upvote} </span> </p>
                 </div>
             </div>
 
