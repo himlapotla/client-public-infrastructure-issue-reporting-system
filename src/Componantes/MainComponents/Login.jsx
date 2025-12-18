@@ -63,7 +63,7 @@ const Login = () => {
 
   return (
 
-    <form onSubmit={handleLogin} className='form flex justify-center min-h-screen items-center pt-10'>
+    <form onSubmit={handleLogin} className='form flex justify-center items-center '>
 
 
       <div className=' rounded-2xl shadow-2xl p-10 space-y-2'>

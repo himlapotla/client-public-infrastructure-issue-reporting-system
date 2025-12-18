@@ -27,7 +27,7 @@ const steps = [
 
 const Work = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="pb-18 pt-10 bg-white mt-0">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-16">
           How the System Works

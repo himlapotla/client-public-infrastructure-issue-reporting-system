@@ -77,7 +77,7 @@ const router = createBrowserRouter([
       //user's routs.......................................
       {
         path: 'Report-issue',
-        element: <ReportIssue> </ReportIssue>
+        element: <PrivateRoute> <ReportIssue> </ReportIssue> </PrivateRoute>
       },
       {
         path: 'All-my-issues',

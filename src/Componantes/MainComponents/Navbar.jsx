@@ -13,8 +13,8 @@ const Navbar = () => {
     const [photo, setPhoto] = useState(null)
 
     const links = <>
-        <Link to={'/'}> <p className='font-semibold'>Home</p> </Link>
-        <Link to={'/allIssues'}> <p className='font-semibold'>All Issues</p> </Link>
+        <Link to={'/'}> <p className='font-semibold text-'>Home</p> </Link>
+        <Link to={'/allIssues'}> <p className='font-semibold text-'>All Issues</p> </Link>
     </>
 
     const handleOut = () => {
@@ -46,7 +46,7 @@ const Navbar = () => {
 
 
     return (
-        <div className=' bg-gradient-to-r from-amber-400 to-amber-500'>
+        <div className=' bg-gradient-to-r from-emerald-400 to-emerald-500 text-white'>
 
             <div className="navbar w-15/16 mx-auto flex items-center py-4">
                 <div className="navbar-start">
@@ -111,7 +111,7 @@ const Navbar = () => {
                     )}
 
                     {
-                        !user && <Link to="/login" className="btn font-semibold bg-amber-400"> Login </Link>
+                        !user && <Link to="/login" className="btn text-white font-semibold bg-emerald-400"> Login </Link>
                     }
                 </div>
             </div>
