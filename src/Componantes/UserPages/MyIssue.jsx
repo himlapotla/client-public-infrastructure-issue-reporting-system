@@ -173,6 +173,7 @@ const MyIssue = () => {
           <option value="electricity">Electricity</option>
           <option value="Public Transport">Public Transport</option>
           <option value="sanitation">Sanitation</option>
+          <option value="Garbage"> Garbage </option>
         </select>
 
         {/* Reset Button */}
@@ -197,37 +198,38 @@ const MyIssue = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredReports.map(report => (
-            <tr key={report._id}>
-              <td>{report.title}</td>
-              <td>{report.category}</td>
-              <td>{report.status}</td>
-              <td className="flex gap-2">
-                {report.status === 'pending' && (
+          {filteredReports.length == 0 ? <p className='text-[22px] font-bold text-red-400'> No Reports Found </p> :
+            filteredReports.map(report => (
+              <tr key={report._id}>
+                <td>{report.title}</td>
+                <td>{report.category}</td>
+                <td>{report.status}</td>
+                <td className="flex gap-2">
+                  {report.status === 'pending' && (
+                    <button
+                      className="btn btn-xs btn-warning"
+                      onClick={() => openEditModal(report)}
+                    >
+                      Edit
+                    </button>
+                  )}
+
                   <button
-                    className="btn btn-xs btn-warning"
-                    onClick={() => openEditModal(report)}
+                    className="btn btn-xs btn-error"
+                    onClick={() => handleDelete(report._id)}
                   >
-                    Edit
+                    Delete
                   </button>
-                )}
 
-                <button
-                  className="btn btn-xs btn-error"
-                  onClick={() => handleDelete(report._id)}
-                >
-                  Delete
-                </button>
-
-                <Link
-                  to={`/issueDetails/${report._id}`}
-                  className="btn btn-xs btn-info"
-                >
-                  Viewww
-                </Link>
-              </td>
-            </tr>
-          ))}
+                  <Link
+                    to={`/issueDetails/${report._id}`}
+                    className="btn btn-xs btn-info"
+                  >
+                    Viewww
+                  </Link>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
 
