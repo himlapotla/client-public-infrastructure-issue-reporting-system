@@ -7,9 +7,10 @@ import axios from 'axios'
 
 const Navbar = () => {
 
-    const { user, logOutt, changeColor, color, imageURL } = useContext(AllContext)
+    const { user, logOutt, changeColor, color } = useContext(AllContext)
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
+    const [photo, setPhoto] = useState(null)
 
     const links = <>
         <Link to={'/'}> <p className='font-semibold'>Home</p> </Link>
@@ -25,12 +26,29 @@ const Navbar = () => {
             })
     }
 
+    useEffect(() => {
+        if (!user?.email) return
+
+        const fetchUsers = async () => {
+            try {
+                const res = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/user/${user.email}`
+                )
+                setPhoto(res.data.photoURL)
+                
+            } 
+            catch (error) {
+                console.error(error)
+            }
+        }
+        fetchUsers()
+    }, [user?.email])
+
+
     return (
         <div className=' bg-gradient-to-r from-amber-400 to-amber-500'>
-{/* {
-    role
-} */}
-            <div className="navbar w-15/16 mx-auto flex items-center py-4"> 
+
+            <div className="navbar w-15/16 mx-auto flex items-center py-4">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -73,9 +91,7 @@ const Navbar = () => {
                             onClick={() => setOpen(!open)}
                             className="w-3/12 md:w-2/12 lg:w-1/12 rounded-full cursor-pointer"
                             title={user ? user.displayName : ""}
-                            // src={user?.photoURL || user?.imageURL || "nai"}
-                            // alt=""
-                            src={user ? user.photoURL : 'nai'}
+                            src={user ? photo : 'nai'}
                         />
 
                     }
