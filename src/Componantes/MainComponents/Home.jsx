@@ -16,7 +16,7 @@ const Home = () => {
 
         <Transparency> </Transparency>
 
-        <CallToActin> </CallToActin>
+        <CallToActin> </CallToActin> 
     </div>
   )
 }

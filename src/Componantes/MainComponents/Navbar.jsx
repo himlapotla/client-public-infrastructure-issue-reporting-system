@@ -97,14 +97,14 @@ const Navbar = () => {
                     }
 
                     {open && (
-                        <div className="absolute right-0 bg-white shadow-lg rounded-lg mt-44 w-40 p-2">
+                        <div className="absolute right-0 bg-white shadow-lg rounded-lg absolute mt-44 w-40 p-2">
                             <div className="p-2 hover:bg-gray-100 cursor-pointer">
-                                {user?.displayName || "User Name"}
+                                <p className='text-black'> {user?.displayName || "User Name"} </p>
                             </div>
-                            <Link to={'/dashboard'} className="p-2 hover:bg-gray-100 cursor-pointer">
+                            <Link to={'/dashboard'} className="p-2 text-black hover:bg-gray-100 cursor-pointer">
                                 Dashboard
                             </Link>
-                            <div onClick={handleOut} className="p-2 hover:bg-gray-100 cursor-pointer">
+                            <div onClick={handleOut} className="p-2 text-black hover:bg-gray-100 cursor-pointer">
                                 Logout
                             </div>
                         </div>

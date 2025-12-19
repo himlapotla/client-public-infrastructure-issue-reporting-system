@@ -11,7 +11,6 @@ import { ToastContainer } from 'react-toastify';
 import Login from './Componantes/MainComponents/Login.jsx';
 import Register from './Componantes/MainComponents/Register.jsx';
 import DashboardLayout from './Componantes/Layout/DashboardLayout.jsx';
-import Profile from './Componantes/DashboardLinks/Profile.jsx';
 import ManageStaff from './Componantes/AdminPages/ManageStaff.jsx';
 import ReportIssue from './Componantes/UserPages/ReportIssue.jsx';
 import MyIssue from './Componantes/UserPages/MyIssue.jsx';
@@ -22,6 +21,7 @@ import Edit from './Componantes/MainComponents/Edit.jsx';
 import AllIssue from './Componantes/AdminPages/AllIssue.jsx';
 import AllAssignedIssues from './Componantes/StaffPages.jsx/AllAssignedIssues.jsx';
 import Home from './Componantes/MainComponents/Home.jsx';
+import UserProfile from './Componantes/UserPages/UserProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -58,10 +58,6 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: <DashboardLayout> </DashboardLayout>,
     children: [
-      {
-        path: 'profile',
-        element: <Profile> </Profile>
-      },
 
       // admin's routes.............................
       {
@@ -82,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: 'All-my-issues',
         element: <MyIssue> </MyIssue>
+      },
+      {
+        path: 'user-profile',
+        element: <UserProfile> </UserProfile>
       },
 
 

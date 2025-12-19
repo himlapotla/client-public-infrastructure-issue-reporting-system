@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 const Baner = () => {
   return (
-    <section className="relative bg-gradient-to-r from-emerald-600 to-teal-500 text-white rounded-2xl">
+    <section className="bg-gradient-to-r from-emerald-600  to-teal-500 text-white rounded-2xl">
       <div className="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
         
         {/* Left Content */}
@@ -27,7 +27,7 @@ const Baner = () => {
             </Link>
 
             <Link
-              to="/dashboard/report-issue"
+              to="/register"
               className="border border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-emerald-600 transition"
             >
               Report an Issue

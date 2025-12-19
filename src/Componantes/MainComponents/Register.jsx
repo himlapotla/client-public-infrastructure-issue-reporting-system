@@ -101,7 +101,7 @@ const Register = () => {
     }
 
     return (
-        <form onSubmit={handleRegister} className='form flex justify-center min-h-screen items-center'>
+        <form onSubmit={handleRegister} className='form flex justify-center items-center'>
             <div className=' rounded-2xl shadow-2xl p-10 space-y-2'>
 
                 <p className='font-bold pb-4'> Signup Now </p>

@@ -41,70 +41,100 @@ const IssueCard = ({ report }) => {
 
             toast.error(err.response?.data?.message || "Upvote failed")
         }
-    };
-
+    }
 
     return (
-        <div className="rounded-xl border p-4 shadow-sm dark:border-gray-700 space-y-5">
+        <div className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-xl dark:border-gray-700 dark:bg-gray-900 space-y-4">
 
+            {/* Image with hover move */}
             {image && (
-                <img
-                    src={image}
-                    alt="Issue"
-                    className="h-60 w-full rounded-lg object-cover"
-                />
+                <div className="overflow-hidden rounded-xl">
+                    <img
+                        src={image}
+                        alt="Issue"
+                        className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                </div>
             )}
 
-            <div className="mt-3">
-                <h2 className="text-lg font-bold">{title}</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+            {/* Title & Description */}
+            <div>
+                <h2 className="text-lg font-bold text-gray-800 dark:text-white">
+                    {title}
+                </h2>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                     {description}
+                </p>
+            </div>
+
+            {/* Info (Label : Tag Value) */}
+            <div className="space-y-2 text-sm">
+
+                <p>
+                    <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        Category :
+                    </span>{" "}
+                    <span className="rounded-md bg-blue-100 px-2 py-0.5 text-blue-700">
+                        {category}
+                    </span>
+                </p>
+
+                <p>
+                    <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        Location :
+                    </span>{" "}
+                    <span className="rounded-md bg-purple-100 px-2 py-0.5 text-purple-700">
+                        {location}
+                    </span>
+                </p>
+
+                <p>
+                    <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        Priority :
+                    </span>{" "}
+                    <span className="rounded-md bg-yellow-100 px-2 py-0.5 text-yellow-700">
+                        {priority}
+                    </span>
+                </p>
+
+                <p>
+                    <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        Status :
+                    </span>{" "}
+                    <span className="rounded-md bg-red-100 px-2 py-0.5 text-red-700">
+                        {status}
+                    </span>
                 </p>
 
             </div>
 
-            <div className="grid grid-cols-2 gap-y-2 gap-x-3 text-sm leading-tight">
-                <span className="font-medium text-gray-600">Category</span>
-                <span className="w-fit rounded bg-blue-100 px-2 py-0.5 text-blue-700">
-                    {category}
-                </span>
+            {/* Divider */}
+            <div className="h-px bg-gray-200 dark:bg-gray-700" />
 
-                <span className="font-medium text-gray-600">Location</span>
-                <span className="w-fit rounded bg-purple-100 px-2 py-0.5 text-purple-700">
-                    {location}
-                </span>
-
-                <span className="font-medium text-gray-600">Priority</span>
-                <span className="w-fit rounded bg-yellow-100 px-2 py-0.5 text-yellow-700">
-                    {priority}
-                </span>
-
-                <span className="font-medium text-gray-600">Status</span>
-                <span className="w-fit rounded bg-red-100 px-2 py-0.5 text-red-700">
-                    {status}
-                </span>
-            </div>
-
-            <div className="flex items-center justify-between pt-3">
-                <div className="text-sm font-medium flex items-center gap-2">
-                    <div>
-                        {
-                            <button onClick={handleUpvote} className="btn bg-amber-500 text-white hover:bg-amber-600"> upvote </button>
-                        }
-                    </div>
-                    <div className="text-2xl font-bold text-green-500">
+            {/* Actions */}
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleUpvote}
+                        className="rounded-full bg-amber-500 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-amber-600"
+                    >
+                        Upvote
+                    </button>
+                    <span className="text-lg font-bold text-green-600">
                         {upvotes}
-                    </div>
+                    </span>
                 </div>
 
                 <Link to={`/issueDetails/${report._id}?value=${upvotes}`}>
-                    <button className="rounded bg-blue-600 px-3 py-2 text-sm text-white hover:bg-blue-700">
+                    <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700">
                         View Details
                     </button>
                 </Link>
             </div>
         </div>
-    )
+    );
+
+
 }
 
 export default IssueCard
