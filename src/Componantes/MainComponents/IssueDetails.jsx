@@ -4,6 +4,7 @@ import axios from "axios";
 import { AllContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import Timeline from "./Timeline";
+import Swal from "sweetalert2";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -23,6 +24,7 @@ const IssueDetails = () => {
     const [issue, setIssue] = useState(null)
     const [clientSecret, setClientSecret] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [dbUser, setDbUser] = useState(null);
 
     useEffect(() => {
         axios
@@ -37,20 +39,50 @@ const IssueDetails = () => {
             });
     }, [id]);
 
+    useEffect(() => {
+        if (user?.email) {
+            axios
+                .get(`${import.meta.env.VITE_API_URL}/user/${user.email}`)
+                .then((res) => setDbUser(res.data));
+        }
+    }, [user]);
+
     const handleDelete = async () => {
-        const confirm = window.confirm("Are you sure you want to delete this report?");
-        if (!confirm) return;
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This report will be deleted permanently!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!"
+        });
+
+        if (!result.isConfirmed) return;
 
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/reports/${id}`);
-            toast.success("Report deleted successfully.");
-            navigate('/allIssues');
-        }
-        catch (err) {
+            await axios.delete(
+                `${import.meta.env.VITE_API_URL}/reports/${id}`
+            );
+
+            Swal.fire(
+                "Deleted!",
+                "Report deleted successfully.",
+                "success"
+            );
+
+            navigate("/allIssues");
+        } catch (err) {
             console.error(err);
-            toast.error(err.response?.data?.message || "Failed to delete report.");
+
+            Swal.fire(
+                "Error!",
+                err.response?.data?.message || "Failed to delete report.",
+                "error"
+            );
         }
-    }
+    };
+
 
     const handleBoost = async () => {
         try {
@@ -71,6 +103,12 @@ const IssueDetails = () => {
     if (!issue) return <p className="text-center mt-10">Issue not found</p>;
 
     const isOwner = user && issue.email === user.email;
+
+    if(dbUser?.isBlock == true) {
+        toast.success("You are blocked, you can not take regular actions.")
+    }
+    console.log(dbUser);
+    
 
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-6">
@@ -105,15 +143,15 @@ const IssueDetails = () => {
 
             <div className="flex flex-wrap gap-3 bg-white dark:bg-gray-900 p-6 rounded-xl shadow">
 
-                {(isOwner && issue.status === "pending") ? (
+                {(isOwner && !dbUser?.isBlock && issue.status === "pending") ? (
                     <Link to={`/edit/${id}`}> <button className="btn">Edit</button> </Link>
                 ) : <button disabled className="btn"> Edit </button>}
 
-                {isOwner ? (
+                {isOwner && !dbUser?.isBlock ? (
                     <button onClick={handleDelete} className="btn bg-red-600 text-white">Delete</button>
                 ) : <button disabled className="btn"> Delete </button>}
 
-                {isOwner && issue.priority !== "high" ? (
+                {isOwner && !dbUser?.isBlock && issue.priority !== "high" ? (
                     <button
                         onClick={handleBoost}
                         className="btn bg-green-600 text-white"

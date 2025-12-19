@@ -78,7 +78,7 @@ const Sidebar = () => {
 
       {user && role === "admin" && (
         <>
-          <Link to="/dashboard/profile" className="block p-2 rounded hover:bg-amber-200">
+          <Link to="/dashboard/user-profile" className="block p-2 rounded hover:bg-amber-200">
             Profile
           </Link>
 

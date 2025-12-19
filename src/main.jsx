@@ -22,6 +22,8 @@ import AllIssue from './Componantes/AdminPages/AllIssue.jsx';
 import AllAssignedIssues from './Componantes/StaffPages.jsx/AllAssignedIssues.jsx';
 import Home from './Componantes/MainComponents/Home.jsx';
 import UserProfile from './Componantes/UserPages/UserProfile.jsx';
+import ManageUser from './Componantes/AdminPages/ManageUser.jsx';
+import Payments from './Componantes/AdminPages/Payments.jsx';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
       {
         path:'All-issues',
         element: <AllIssue> </AllIssue>
+      },
+      {
+        path: 'Manage-user',
+        element: <ManageUser> </ManageUser>
+      },
+      {
+        path: 'All-payments',
+        element: <Payments> </Payments>
       },
 
 

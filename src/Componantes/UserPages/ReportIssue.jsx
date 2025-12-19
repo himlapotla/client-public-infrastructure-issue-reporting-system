@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
@@ -9,6 +9,9 @@ const ReportIssue = () => {
     const [imageURL, setImageURL] = useState("")
     const navigate = useNavigate()
     const { user } = useContext(AllContext)
+    const [repot, setRepot] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
     const handleImageUpload = async (e) => {
         const image = e.target.files[0]
@@ -32,8 +35,28 @@ const ReportIssue = () => {
             console.log("Upload failed:", err)
         }
     }
-    console.log(imageURL);
-    
+
+    useEffect(() => {
+        if (!user?.email) return;
+
+        const fetchReports = async () => {
+            try {
+                const res = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/my-reports/${encodeURIComponent(user.email)}`
+                );
+
+                setRepot(res.data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchReports();
+    }, [user?.email]);
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -55,7 +78,7 @@ const ReportIssue = () => {
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/reports`,
                 reportData
-            ) 
+            )
 
             console.log(res.data)
             toast.success("Your issue reported successfuly.")
@@ -67,6 +90,17 @@ const ReportIssue = () => {
             toast.success(error.response?.data?.message)
         }
     }
+
+    useEffect(() => {
+        if (!loading && repot.length === 3) {
+            navigate("/dashboard/user-profile");
+            toast.success("You have to be a premium user for more reports.")
+        }
+    }, [repot, loading, navigate]);
+
+    console.log("Report length:", repot.length);
+
+
 
     return (
         <div className="max-w-xl mx-auto mt-10 p-6 bg-white dark:bg-gray-900 rounded-xl shadow">

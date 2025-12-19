@@ -16,6 +16,7 @@ const Navbar = () => {
         <Link to={'/'}> <p className='font-semibold text-'>Home</p> </Link>
         <Link to={'/allIssues'}> <p className='font-semibold text-'>All Issues</p> </Link>
     </>
+console.log(photo);
 
     const handleOut = () => {
         setOpen(false)

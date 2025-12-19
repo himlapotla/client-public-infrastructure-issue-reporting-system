@@ -1,14 +1,27 @@
-import React, { useContext, useState } from "react";
-import { AllContext } from "../Provider/AuthProvider";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const ManageStaff = () => {
 
-    const {  } = useContext(AllContext)
-    const [open, setOpen] = useState(false)
-    const [error, setError] = useState('')
-    const [imageURL, setImageURL] = useState("")
+    const [staffs, setStaffs] = useState([]);
+    const [openAdd, setOpenAdd] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [selectedStaff, setSelectedStaff] = useState(null);
+    const [imageURL, setImageURL] = useState("");
+    const [error, setError] = useState("");
 
+    /* ================= FETCH STAFF ================= */
+    const fetchStaffs = async () => {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/staff`);
+        setStaffs(res.data);
+    };
+
+    useEffect(() => {
+        fetchStaffs();
+    }, []);
+
+    /* ================= IMAGE UPLOAD ================= */
     const handleImageUpload = async (e) => {
         const image = e.target.files[0];
         if (!image) return;
@@ -16,154 +29,190 @@ const ManageStaff = () => {
         const formData = new FormData();
         formData.append("image", image);
 
-        try {
-            const res = await axios.post(
-                `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
-                formData
-            );
+        const res = await axios.post(
+            `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
+            formData
+        );
 
-            const url = res.data.data.url;
-            setImageURL(url);
+        setImageURL(res.data.data.url);
+    };
 
-            console.log("Uploaded URL:", url);
-        }
-        catch (err) {
-            console.log("Upload failed:", err);
-        }
-    }
-
-    const handleStaff = async (e) => {
+    /* ================= ADD STAFF ================= */
+    const handleAddStaff = async (e) => {
         e.preventDefault();
 
-        const email = e.target.email.value;
-        const pass = e.target.password.value;
-        const name = e.target.name.value;
-        const phone = e.target.phone.value;
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const phone = form.phone.value;
+        const pass = form.password.value;
 
         if (!imageURL) {
-            setError("Please upload an image first");
+            setError("Please upload image");
             return;
         }
-        if (!/[A-Z]/.test(pass)) {
-            setError('Password must contain at least one Uppercase letter')
-            return
-        }
-        else if (!/[a-z]/.test(pass)) {
-            setError('Password must contain at least one Lowercase letter')
-            return
-        }
-        else if (pass.length < 6) {
-            setError("Password must be at least 6 characters long");
-            return
-        }
-        else {
-            // Submit to backend /create-staff route
-            try {
-                const res = await axios.post(`${import.meta.env.VITE_API_URL}/create-staff`, {
-                    name,
-                    email,
-                    phone,
-                    pass,
-                    photoURL: imageURL,
-                });
 
-                if (res.data.success) {
-                    alert("Staff added successfully!");
-                    setOpen(false);
-                    setImageURL("");
-                    e.target.reset()
-                } else {
-                    setError("Failed to add staff");
-                }
-            } catch (err) {
-                console.error(err);
-                setError(err.response?.data?.message || "Server error");
-            }
-        };
+        await axios.post(`${import.meta.env.VITE_API_URL}/create-staff`, {
+            name,
+            email,
+            phone,
+            pass,
+            photoURL: imageURL
+        });
 
-        // saveOrUpdateUser({ name, email, phone, imageURL, })
-    }
+        Swal.fire("Success", "Staff added successfully", "success");
+
+        setOpenAdd(false);
+        setImageURL("");
+        fetchStaffs();
+        form.reset();
+    };
+
+    /* ================= OPEN EDIT MODAL ================= */
+    const openEditModal = (staff) => {
+        setSelectedStaff(staff);
+        setImageURL(staff.photoURL);
+        setOpenEdit(true);
+    };
+
+    /* ================= UPDATE STAFF ================= */
+    const handleUpdateStaff = async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.name.value;
+        const phone = form.phone.value;
+
+        await axios.patch(
+            `${import.meta.env.VITE_API_URL}/update-staff/${selectedStaff._id}`,
+            { name, phone, photoURL: imageURL }
+        );
+
+        Swal.fire("Updated!", "Staff updated successfully", "success");
+
+        setOpenEdit(false);
+        fetchStaffs();
+    };
+
+    /* ================= DELETE STAFF ================= */
+    const handleDelete = async (id) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This staff will be deleted permanently!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        });
+
+        if (result.isConfirmed) {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/delete-staff/${id}`);
+            setStaffs(staffs.filter(staff => staff._id !== id));
+            Swal.fire("Deleted!", "Staff has been removed.", "success");
+        }
+    };
 
     return (
-    <div>
+        <div className="p-6">
 
-        <button className="btn" onClick={() => setOpen(true)} >
-            Add Staff
-        </button>
+            <button className="btn bg-emerald-400 text-white mb-4" onClick={() => setOpenAdd(true)}>
+                Add Staff
+            </button>
 
-        {open && (
-            <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+            <table className="table w-full border">
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-                <div className="bg-white p-6 rounded-xl w-96 shadow-lg relative">
+                <tbody>
+                    {staffs.map(staff => (
+                        <tr key={staff._id}>
+                            <td>
+                                <img src={staff.photoURL} className="w-12 h-12 rounded-full" />
+                            </td>
+                            <td>{staff.name}</td>
+                            <td>{staff.email}</td>
+                            <td>{staff.phone}</td>
+                            <td className="space-x-2">
+                                <button
+                                    className="btn btn-sm btn-warning"
+                                    onClick={() => openEditModal(staff)}
+                                >
+                                    Update
+                                </button>
 
-                    <h2 className="text-xl font-bold mb-4">Add Staff</h2>
+                                <button
+                                    className="btn btn-sm btn-error"
+                                    onClick={() => handleDelete(staff._id)}
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
+            {/* ================= ADD MODAL ================= */}
+            {openAdd && (
+                <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center">
+                    <div className="bg-white p-6 rounded w-96 relative">
+                        <h2 className="text-xl font-bold mb-4">Add Staff</h2>
 
-                    <form onSubmit={handleStaff} className="space-y-5">
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Full Name"
-                            className="input input-bordered w-full"
-                            required
-                        />
+                        <form onSubmit={handleAddStaff} className="space-y-3">
+                            <input name="name" placeholder="Name" className="input input-bordered w-full" required />
+                            <input name="email" type="email" placeholder="Email" className="input input-bordered w-full" required />
+                            <input name="phone" placeholder="Phone" className="input input-bordered w-full" required />
+                            <input type="file" onChange={handleImageUpload} />
+                            <input name="password" type="password" placeholder="Password" className="input input-bordered w-full" required />
 
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email Address"
-                            className="input input-bordered w-full"
-                            required
-                        />
+                            {error && <p className="text-red-500">{error}</p>}
 
-                        <input
-                            type="text"
-                            name="phone"
-                            placeholder="Phone Number"
-                            className="input input-bordered w-full"
-                            required
-                        />
+                            <button className="btn btn-primary w-full">Save</button>
+                        </form>
 
-                        <label className='label'> upload the photo </label>  <br />
-                        <input
-                            name='image'
-                            type='file'
-                            id='image'
-                            accept='image/*'
-                            className='input'
-                            onChange={handleImageUpload} />
-
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            className="input input-bordered w-full"
-                            required
-                        />
-
-
-                        <button className="btn btn-primary w-full">Save</button>
-                    </form>
-
-
-                    <button
-                        className="btn btn-sm btn-circle absolute top-2 right-2"
-                        onClick={() => setOpen(false)}
-                    >
-                        ✕
-                    </button>
-
+                        <button className="absolute top-2 right-2" onClick={() => setOpenAdd(false)}>✕</button>
+                    </div>
                 </div>
-            </div>
-        )}
-    </div>
-);
-}
+            )}
 
+            {/* ================= EDIT MODAL ================= */}
+            {openEdit && (
+                <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
+                    <div className="bg-white p-6 rounded w-96 relative">
+                        <h2 className="text-xl font-bold mb-4">Update Staff</h2>
 
+                        <form onSubmit={handleUpdateStaff} className="space-y-3">
+                            <input
+                                name="name"
+                                defaultValue={selectedStaff.name}
+                                className="input input-bordered w-full"
+                                required
+                            />
+                            <input
+                                name="phone"
+                                defaultValue={selectedStaff.phone}
+                                className="input input-bordered w-full"
+                                required
+                            />
 
+                            <input type="file" onChange={handleImageUpload} />
 
+                            <button className="btn btn-warning w-full">Update</button>
+                        </form>
+
+                        <button className="absolute top-2 right-2" onClick={() => setOpenEdit(false)}>✕</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default ManageStaff;
-
-

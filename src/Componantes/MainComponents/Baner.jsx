@@ -20,7 +20,7 @@ const Baner = () => {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              to="/all-issues"
+              to="/allIssues"
               className="bg-white text-emerald-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
             >
               View All Issues
