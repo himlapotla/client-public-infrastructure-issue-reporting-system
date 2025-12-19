@@ -99,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: 'All-assigned-issues',
         element: <AllAssignedIssues> </AllAssignedIssues>
+      },
+      {
+        path: 'user-profile',
+        element: <UserProfile> </UserProfile>
       }
     ]
   }

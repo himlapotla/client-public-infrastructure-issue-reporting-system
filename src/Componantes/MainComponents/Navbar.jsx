@@ -11,6 +11,7 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
     const [photo, setPhoto] = useState(null)
+    
 
     const links = <>
         <Link to={'/'}> <p className='font-semibold text-'>Home</p> </Link>
@@ -35,8 +36,8 @@ console.log(photo);
                 const res = await axios.get(
                     `${import.meta.env.VITE_API_URL}/user/${user.email}`
                 )
-                setPhoto(res.data.photoURL)
-                
+                setPhoto(res.data.imageURL)
+                console.log(res.data);
             } 
             catch (error) {
                 console.error(error)

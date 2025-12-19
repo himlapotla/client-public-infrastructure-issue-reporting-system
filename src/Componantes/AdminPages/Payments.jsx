@@ -57,7 +57,7 @@ const Payments = () => {
                         <tr key={payment._id}>
                             <td>{payment.email}</td>
                             <td className="capitalize">{payment.type}</td>
-                            <td>${payment.amount / 100}</td>
+                            <td>{payment.amount / 100}tk</td>
                             <td className="text-xs">{payment.transactionId}</td>
                             <td>
                                 {new Date(payment.createdAt).toLocaleDateString()}

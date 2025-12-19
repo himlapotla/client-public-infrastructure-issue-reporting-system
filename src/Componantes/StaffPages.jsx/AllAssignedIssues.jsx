@@ -2,6 +2,7 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { AllContext } from "../Provider/AuthProvider"
 import StatusDropdown from "./StatusDropdown"
+import { toast } from "react-toastify"
 
 const AllAssignedIssues = () => {
     const { user, loading } = useContext(AllContext)
@@ -41,6 +42,7 @@ const AllAssignedIssues = () => {
                 item._id === id ? { ...item, status: newStatus } : item
             )
         )
+        toast.success("status is updated. Please reload the page.")
     }
 
     const filteredReports = filterStatus
