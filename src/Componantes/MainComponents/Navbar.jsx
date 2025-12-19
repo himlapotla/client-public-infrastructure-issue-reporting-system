@@ -87,12 +87,13 @@ const Navbar = () => {
                 <div className="navbar-end gap-3">
 
                     {
-                        <img
+                        user ? <img
                             onClick={() => setOpen(!open)}
-                            className="w-3/12 md:w-2/12 lg:w-1/12 rounded-full cursor-pointer"
+                            className="w-15 h-15 rounded-full border object-cover cursor-pointer"
                             title={user ? user.displayName : ""}
                             src={user ? photo : 'nai'}
-                        />
+                        /> : 
+                        <Link to="/login" className="btn text-white font-semibold bg-emerald-400"> Login </Link>
 
                     }
 
@@ -110,9 +111,6 @@ const Navbar = () => {
                         </div>
                     )}
 
-                    {
-                        !user && <Link to="/login" className="btn text-white font-semibold bg-emerald-400"> Login </Link>
-                    }
                 </div>
             </div>
 
