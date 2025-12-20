@@ -12,13 +12,13 @@ const Navbar = () => {
     const navigate = useNavigate()
     const [photo, setPhoto] = useState(null)
     const [photo2, setPhoto2] = useState(null)
-    
+
 
     const links = <>
         <Link to={'/'}> <p className='font-semibold text-'>Home</p> </Link>
         <Link to={'/allIssues'}> <p className='font-semibold text-'>All Issues</p> </Link>
     </>
-console.log(photo);
+    console.log(photo);
 
     const handleOut = () => {
         setOpen(false)
@@ -40,7 +40,7 @@ console.log(photo);
                 setPhoto(res.data.imageURL)
                 setPhoto2(res.data.photoURL)
                 console.log(res.data);
-            } 
+            }
             catch (error) {
                 console.error(error)
             }
@@ -67,16 +67,33 @@ console.log(photo);
                         </ul>
                     </div>
 
-                    <div className='flex items-center gap-1'>
-                        <div>
-                            <p>image</p>
-                        </div>
-                        <div>
-                            <Link to={'/'} className=" text-2xl font-bold text-amber-700"> TravelEase </Link>
-                        </div>
-                        <div className='text-3xl px-3' onClick={changeColor}> {color === "light-mode" ? <FaMoon> </FaMoon> : <FaSun></FaSun>}
-                        </div>
+                    <div className="flex items-center gap-3">
+                        
+                        <img
+                            src="https://i.ibb.co.com/zTWJnbYW/imagesss.jpg"
+                            alt="CityFix Logo"
+                            className="w-10 h-10 rounded-md object-cover"
+                        />
+
+                        <Link
+                            to="/"
+                            className="text-2xl font-extrabold tracking-wide text-amber-700 hover:text-amber-600 transition-colors duration-300"
+                        >
+                            City<span className="text-gray-800 dark:text-gray-200">Fix</span>
+                        </Link>
+
+                        <button
+                            onClick={changeColor}
+                            aria-label="Toggle theme"
+                            className="ml-2 p-2 rounded-full bg-amber-100 text-amber-700 
+                   hover:bg-amber-200 hover:scale-105
+                   dark:bg-gray-700 dark:text-yellow-400
+                   transition-all duration-300"
+                        >
+                            {color === "light-mode" ? <FaMoon size={18} /> : <FaSun size={18} />}
+                        </button>
                     </div>
+
 
 
                 </div>
@@ -96,8 +113,8 @@ console.log(photo);
                             className="w-15 h-15 rounded-full border object-cover cursor-pointer"
                             title={user ? user.displayName : ""}
                             src={user ? (photo || photo2) : 'nai'}
-                        /> : 
-                        <Link to="/login" className="btn text-white font-semibold bg-emerald-400"> Login </Link>
+                        /> :
+                            <Link to="/login" className="btn text-white font-semibold bg-emerald-400"> Login </Link>
 
                     }
 

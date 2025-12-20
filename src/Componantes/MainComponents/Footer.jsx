@@ -10,7 +10,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-10 text-gray-700">
 
                     <div>
-                        <h3 className="font-bold text-2xl text-amber-700">TravelEase</h3>
+                        <h3 className="font-bold text-2xl text-amber-700">CityFix</h3>
                         <p className=" text-white mt-2">
                             Report.Track.Improve Your City.
                         </p>
