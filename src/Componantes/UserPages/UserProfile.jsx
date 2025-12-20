@@ -116,7 +116,7 @@ const UserProfile = () => {
                 photoURL: formData.photoURL,
             });
 
-            toast.success("Profile updated successfully");
+            toast.success("Profile updated successfully.");
             setIsOpen(false);
         } catch (err) {
             toast.error("Failed to update profile");
@@ -191,28 +191,6 @@ const UserProfile = () => {
                 </div>
             </div>
 
-            <div className="pt-10">
-                {payments.length === 0 && <button className="btn bg-emerald-400">No payments found to download invoice</button>}
-
-                {payments.map(payment => (
-                    <div key={payment._id} className="flex justify-between items-center">
-                        <p>${payment.amount} - {payment.status}</p>
-
-                        <button
-                            onClick={() =>
-                                window.open(
-                                    `${import.meta.env.VITE_API_URL}/payments/invoice/${payment._id}`,
-                                    "_blank"
-                                )
-                            }
-                            className="btn btn-xs btn-outline"
-                        >
-                            Invoice
-                        </button>
-                    </div>
-                ))}
-            </div>
-
 
             {clientSecret && (
                 <div className="mt-4">
@@ -224,7 +202,7 @@ const UserProfile = () => {
                                     `${import.meta.env.VITE_API_URL}/users/premium`,
                                     { email: user.email }
                                 );
-                                toast.success("Subscription successful!");
+                                toast.success("Subscription successful. Please reload the page.");
                                 setClientSecret(null);
                             }}
                         />

@@ -24,7 +24,7 @@ const IssueDetails = () => {
     const [issue, setIssue] = useState(null)
     const [clientSecret, setClientSecret] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [dbUser, setDbUser] = useState(null);
+    const [dbUser, setDbUser] = useState(null)
 
     useEffect(() => {
         axios

@@ -121,7 +121,7 @@ const IssueCard = ({ report }) => {
                 </div>
 
                 <Link to={`/issueDetails/${report._id}?value=${upvotes}`}>
-                    <button className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700">
+                    <button className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition cursor-pointer">
                         View Details
                     </button>
                 </Link>

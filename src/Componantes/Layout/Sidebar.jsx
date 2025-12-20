@@ -18,7 +18,7 @@ const Sidebar = () => {
             Profile
           </Link>
 
-          <Link to="/dashboard/user-statics" className="block p-2 rounded hover:bg-amber-200">
+          <Link to="/dashboard" className="block p-2 rounded hover:bg-amber-200">
             All statics
           </Link>
 
@@ -43,7 +43,7 @@ const Sidebar = () => {
             All assigned issues
           </Link>
 
-          <Link to="/dashboard/staff-static" className="block p-2 rounded hover:bg-amber-200">
+          <Link to="/dashboard" className="block p-2 rounded hover:bg-amber-200">
             All statics
           </Link>
         </>
@@ -73,7 +73,7 @@ const Sidebar = () => {
             All payments
           </Link>
 
-          <Link to="/dashboard/admin-statics" className="block p-2 rounded hover:bg-amber-200">
+          <Link to="/dashboard" className="block p-2 rounded hover:bg-amber-200">
             All statics
           </Link>
 

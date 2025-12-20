@@ -9,8 +9,9 @@ const ReportIssue = () => {
     const [imageURL, setImageURL] = useState("")
     const navigate = useNavigate()
     const { user } = useContext(AllContext)
-    const [repot, setRepot] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [repot, setRepot] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [dbUser, setDbUser] = useState(null)
 
 
     const handleImageUpload = async (e) => {
@@ -35,6 +36,14 @@ const ReportIssue = () => {
             console.log("Upload failed:", err)
         }
     }
+
+    useEffect(() => {
+        if (user?.email) {
+            axios
+                .get(`${import.meta.env.VITE_API_URL}/user/${user.email}`)
+                .then((res) => setDbUser(res.data));
+        }
+    }, [user]);
 
     useEffect(() => {
         if (!user?.email) return;
@@ -92,7 +101,7 @@ const ReportIssue = () => {
     }
 
     useEffect(() => {
-        if (!loading && repot.length === 3) {
+        if (!loading && repot.length === 3 && !dbUser?.isPremium) {
             navigate("/dashboard/user-profile");
             toast.success("You have to be a premium user for more reports.")
         }
@@ -159,7 +168,7 @@ const ReportIssue = () => {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+                    className="w-full bg-emerald-500 text-white py-3 rounded-lg font-semibold"
                 >
                     Submit Issue
                 </button>

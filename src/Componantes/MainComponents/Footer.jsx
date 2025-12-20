@@ -1,5 +1,6 @@
 import React from 'react'
 import { FaFacebook, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const Footer = () => {
 
@@ -10,7 +11,21 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-10 text-gray-700">
 
                     <div>
-                        <h3 className="font-bold text-2xl text-amber-700">CityFix</h3>
+                        <div className="flex items-center gap-3">
+
+                            <img
+                                src="https://i.ibb.co.com/zTWJnbYW/imagesss.jpg"
+                                alt="CityFix Logo"
+                                className="w-10 h-10 rounded-md object-cover"
+                            />
+
+                            <Link
+                                to="/"
+                                className="text-2xl font-extrabold tracking-wide text-amber-700 hover:text-amber-600 transition-colors duration-300"
+                            >
+                                City<span className="text-gray-800 dark:text-gray-200">Fix</span>
+                            </Link>
+                        </div>
                         <p className=" text-white mt-2">
                             Report.Track.Improve Your City.
                         </p>

@@ -1,4 +1,4 @@
-CityFix is a full-stack web application that allows citizens to report public infrastructure issues and enables government authorities to manage, track, and resolve them efficiently.  
+CityFix is the name of this project. This is a full-stack web application that allows citizens to report public infrastructure issues and enables government authorities to manage, track, and resolve them efficiently.  
 The platform ensures transparency, faster response times, and better city service delivery through a role-based system.
 
 ---
@@ -8,16 +8,16 @@ Live Website -- https://your-live-site-url.com
 ---
 
 Admin Credentials
-Email:  
-Password:
+Email: admin@gmail.com
+Password: 1111zX
 
 Staff Credentials
-Email:  
-Password: 
+Email: staff1@gmail.com
+Password: 1111zX
 
 Citizen Credentials
-Email:  
-Password: 
+Email: citizen1@gmail.com
+Password: 1111zX
 
 
 ---

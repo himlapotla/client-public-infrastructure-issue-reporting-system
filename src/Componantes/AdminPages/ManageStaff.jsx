@@ -11,7 +11,6 @@ const ManageStaff = () => {
     const [imageURL, setImageURL] = useState("");
     const [error, setError] = useState("");
 
-    /* ================= FETCH STAFF ================= */
     const fetchStaffs = async () => {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/staff`);
         setStaffs(res.data);
@@ -21,7 +20,6 @@ const ManageStaff = () => {
         fetchStaffs();
     }, []);
 
-    /* ================= IMAGE UPLOAD ================= */
     const handleImageUpload = async (e) => {
         const image = e.target.files[0];
         if (!image) return;
@@ -37,7 +35,6 @@ const ManageStaff = () => {
         setImageURL(res.data.data.url);
     };
 
-    /* ================= ADD STAFF ================= */
     const handleAddStaff = async (e) => {
         e.preventDefault();
 
@@ -68,14 +65,13 @@ const ManageStaff = () => {
         form.reset();
     };
 
-    /* ================= OPEN EDIT MODAL ================= */
     const openEditModal = (staff) => {
         setSelectedStaff(staff);
         setImageURL(staff.photoURL);
         setOpenEdit(true);
     };
 
-    /* ================= UPDATE STAFF ================= */
+    
     const handleUpdateStaff = async (e) => {
         e.preventDefault();
 
@@ -94,7 +90,6 @@ const ManageStaff = () => {
         fetchStaffs();
     };
 
-    /* ================= DELETE STAFF ================= */
     const handleDelete = async (id) => {
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -119,7 +114,7 @@ const ManageStaff = () => {
                 Add Staff
             </button>
 
-            <table className="table w-full border">
+            <table className="table w-full ">
                 <thead>
                     <tr>
                         <th>Photo</th>
@@ -159,7 +154,7 @@ const ManageStaff = () => {
                 </tbody>
             </table>
 
-            {/* ================= ADD MODAL ================= */}
+           
             {openAdd && (
                 <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center">
                     <div className="bg-white p-6 rounded w-96 relative">
@@ -169,7 +164,7 @@ const ManageStaff = () => {
                             <input name="name" placeholder="Name" className="input input-bordered w-full" required />
                             <input name="email" type="email" placeholder="Email" className="input input-bordered w-full" required />
                             <input name="phone" placeholder="Phone" className="input input-bordered w-full" required />
-                            <input type="file" onChange={handleImageUpload} />
+                            <input type="file" className="input" onChange={handleImageUpload} />
                             <input name="password" type="password" placeholder="Password" className="input input-bordered w-full" required />
 
                             {error && <p className="text-red-500">{error}</p>}
@@ -177,14 +172,13 @@ const ManageStaff = () => {
                             <button className="btn btn-primary w-full">Save</button>
                         </form>
 
-                        <button className="absolute top-2 right-2" onClick={() => setOpenAdd(false)}>✕</button>
+                        <button className="absolute top-2 right-2" onClick={() => setOpenAdd(false)}>close</button>
                     </div>
                 </div>
             )}
 
-            {/* ================= EDIT MODAL ================= */}
             {openEdit && (
-                <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
+                <div className="fixed inset-0  bg-opacity-40 flex justify-center items-center">
                     <div className="bg-white p-6 rounded w-96 relative">
                         <h2 className="text-xl font-bold mb-4">Update Staff</h2>
 
@@ -207,7 +201,7 @@ const ManageStaff = () => {
                             <button className="btn btn-warning w-full">Update</button>
                         </form>
 
-                        <button className="absolute top-2 right-2" onClick={() => setOpenEdit(false)}>✕</button>
+                        <button className="absolute top-2 right-2" onClick={() => setOpenEdit(false)}>close</button>
                     </div>
                 </div>
             )}

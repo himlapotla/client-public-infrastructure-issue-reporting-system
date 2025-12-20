@@ -68,7 +68,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                        
+
                         <img
                             src="https://i.ibb.co.com/zTWJnbYW/imagesss.jpg"
                             alt="CityFix Logo"

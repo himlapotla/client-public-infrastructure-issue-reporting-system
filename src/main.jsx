@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useContext } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -24,9 +24,9 @@ import Home from './Componantes/MainComponents/Home.jsx';
 import UserProfile from './Componantes/UserPages/UserProfile.jsx';
 import ManageUser from './Componantes/AdminPages/ManageUser.jsx';
 import Payments from './Componantes/AdminPages/Payments.jsx';
-import Statics from './Componantes/UserPages/Statics.jsx';
 import AdminStatics from './Componantes/AdminPages/AdminStatics.jsx';
-import StaffStatic from './Componantes/StaffPages.jsx/StaffStatic.jsx';
+import AdminWarp from './Componantes/MainComponents/AdminWarp.jsx';
+import NotFound from './Componantes/MainComponents/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -55,7 +55,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/edit/:id',
-        element: <Edit> </Edit>,
+        element: <PrivateRoute> <Edit> </Edit> </PrivateRoute>
+      },
+
+
+      {
+        path: '*',
+        element: <NotFound> </NotFound>
       }
     ]
   },
@@ -70,7 +76,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute> <ManageStaff> </ManageStaff> </PrivateRoute>
       },
       {
-        path:'All-issues',
+        path: 'All-issues',
         element: <PrivateRoute> <AllIssue> </AllIssue> </PrivateRoute>
       },
       {
@@ -81,11 +87,13 @@ const router = createBrowserRouter([
         path: 'All-payments',
         element: <PrivateRoute> <Payments> </Payments> </PrivateRoute>
       },
+
       {
         // path: 'admin-statics',
         index: true,
-        element: <AdminStatics> </AdminStatics>
+        element: <AdminWarp> </AdminWarp>
       },
+
 
 
       //user's routs.......................................
@@ -101,12 +109,6 @@ const router = createBrowserRouter([
         path: 'user-profile',
         element: <PrivateRoute> <UserProfile> </UserProfile> </PrivateRoute>
       },
-      {
-        // path: 'user-statics',
-        index: true,
-        element: <Statics> </Statics>
-      },
-
 
       //staff's from here.............................................
       {
@@ -117,13 +119,18 @@ const router = createBrowserRouter([
         path: 'user-profile',
         element: <PrivateRoute> <UserProfile> </UserProfile> </PrivateRoute>
       },
+
+
+
       {
-        // path: 'staff-static',
-        index: true,
-        element: <StaffStatic> </StaffStatic>
+        path: '*',
+        element: <NotFound> </NotFound>
       }
+
     ]
-  }
+
+  },
+
 ]);
 
 createRoot(document.getElementById('root')).render(

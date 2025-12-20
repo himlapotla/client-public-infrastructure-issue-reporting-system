@@ -8,15 +8,36 @@ const AllIssue = () => {
     const [selectedIssue, setSelectedIssue] = useState(null)
     const [selectedStaff, setSelectedStaff] = useState('')
 
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const limit = 6
+
     useEffect(() => {
         fetchReports()
         fetchStaff()
     }, [])
 
-    const fetchReports = async () => {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/reports`)
+    const fetchReports = async (page = 1) => {
+        const res = await axios.get(
+            `${import.meta.env.VITE_API_URL}/reports`,
+            {
+                params: {
+                    page,
+                    limit
+                }
+            }
+        )
+
         setReports(res.data.reports)
+        setTotalPages(res.data.totalPages)
     }
+
+    useEffect(() => {
+        fetchReports(currentPage)
+        fetchStaff()
+    }, [currentPage])
+
+
 
     const fetchStaff = async () => {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/staff`)
@@ -156,6 +177,36 @@ const AllIssue = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="flex justify-center items-center gap-2 mt-10">
+
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(prev => prev - 1)}
+                    className="btn btn-sm"
+                >
+                    Prev
+                </button>
+
+                {[...Array(totalPages).keys()].map(num => (
+                    <button
+                        key={num}
+                        onClick={() => setCurrentPage(num + 1)}
+                        className={`btn btn-sm ${currentPage === num + 1 ? 'btn-primary' : ''
+                            }`}
+                    >
+                        {num + 1}
+                    </button>
+                ))}
+
+                <button
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(prev => prev + 1)}
+                    className="btn btn-sm"
+                >
+                    Next
+                </button>
             </div>
 
             {selectedIssue && (
