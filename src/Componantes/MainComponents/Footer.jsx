@@ -77,7 +77,7 @@ const Footer = () => {
             </div>
 
             <div className="text-center mt-10 text-sm text-white ">
-                © 2025 TravelEase. All rights reserved.
+                © 2025 CityFix. All rights reserved.
             </div>
 
         </div>
