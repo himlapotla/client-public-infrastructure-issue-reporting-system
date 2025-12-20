@@ -18,24 +18,8 @@ const Sidebar = () => {
             Profile
           </Link>
 
-          <Link to="/dashboard/Total-issues-submitted" className="block p-2 rounded hover:bg-amber-200">
-            Total issues submitted
-          </Link>
-
-          <Link to="/dashboard/Total-pending-issues" className="block p-2 rounded hover:bg-amber-200">
-            Total pending issues
-          </Link>
-
-          <Link to="/dashboard/Total-in-progress-issues" className="block p-2 rounded hover:bg-amber-200">
-            Total in progress issues
-          </Link>
-
-          <Link to="/dashboard/Total-Resolved-issues" className="block p-2 rounded hover:bg-amber-200">
-            Total Resolved issues
-          </Link>
-
-          <Link to="/dashboard/Total-payments" className="block p-2 rounded hover:bg-amber-200">
-            Total payments
+          <Link to="/dashboard/user-statics" className="block p-2 rounded hover:bg-amber-200">
+            All statics
           </Link>
 
           <Link to="/dashboard/All-my-issues" className="block p-2 rounded hover:bg-amber-200">
@@ -55,21 +39,12 @@ const Sidebar = () => {
             Profile
           </Link>
 
-          <Link to="/dashboard/Assigned-issues-count" className="block p-2 rounded hover:bg-amber-200">
-            Assigned issues count
-          </Link>
-
-          <Link to="/dashboard/Issues-resolved-count" className="block p-2 rounded hover:bg-amber-200">
-            Issues resolved count
-
-          </Link>
-
-          <Link to="/dashboard/Todays-task" className="block p-2 rounded hover:bg-amber-200">
-            Todays task
-          </Link>
-
           <Link to="/dashboard/All-assigned-issues" className="block p-2 rounded hover:bg-amber-200">
             All assigned issues
+          </Link>
+
+          <Link to="/dashboard/staff-static" className="block p-2 rounded hover:bg-amber-200">
+            All statics
           </Link>
         </>
 
@@ -94,29 +69,17 @@ const Sidebar = () => {
             Manage staff
           </Link>
 
-          <Link to="/dashboard/Total-issue-count" className="block p-2 rounded hover:bg-amber-200">
-            Total issue count
-          </Link>
-
           <Link to="/dashboard/All-payments" className="block p-2 rounded hover:bg-amber-200">
             All payments
           </Link>
 
-          <Link to="/dashboard/Resolved-issue-count" className="block p-2 rounded hover:bg-amber-200">
-            Resolved issue count
+          <Link to="/dashboard/admin-statics" className="block p-2 rounded hover:bg-amber-200">
+            All statics
           </Link>
 
-          <Link to="/dashboard/Pending-issue-count" className="block p-2 rounded hover:bg-amber-200">
-            Pending issue count
-          </Link>
+          
 
-          <Link to="/dashboard/Rejected-issue-count" className="block p-2 rounded hover:bg-amber-200">
-            Rejected issue count
-          </Link>
-
-          <Link to="/dashboard/Total-payment-received" className="block p-2 rounded hover:bg-amber-200">
-            Total payment received
-          </Link>
+          
         </>
       )}
     </div>

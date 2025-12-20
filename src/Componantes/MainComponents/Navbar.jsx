@@ -11,6 +11,7 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
     const [photo, setPhoto] = useState(null)
+    const [photo2, setPhoto2] = useState(null)
     
 
     const links = <>
@@ -37,6 +38,7 @@ console.log(photo);
                     `${import.meta.env.VITE_API_URL}/user/${user.email}`
                 )
                 setPhoto(res.data.imageURL)
+                setPhoto2(res.data.photoURL)
                 console.log(res.data);
             } 
             catch (error) {
@@ -93,7 +95,7 @@ console.log(photo);
                             onClick={() => setOpen(!open)}
                             className="w-15 h-15 rounded-full border object-cover cursor-pointer"
                             title={user ? user.displayName : ""}
-                            src={user ? photo : 'nai'}
+                            src={user ? (photo || photo2) : 'nai'}
                         /> : 
                         <Link to="/login" className="btn text-white font-semibold bg-emerald-400"> Login </Link>
 

@@ -34,7 +34,7 @@ const IssueCard = ({ report }) => {
             )
 
             setUpvotes(prev => prev + 1)
-            toast.success("Upvoted!")
+            toast.success("Upvoted successfil.")
         }
         catch (err) {
             console.log(err.message);
@@ -46,7 +46,6 @@ const IssueCard = ({ report }) => {
     return (
         <div className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-xl dark:border-gray-700 dark:bg-gray-900 space-y-4">
 
-            {/* Image with hover move */}
             {image && (
                 <div className="overflow-hidden rounded-xl">
                     <img
@@ -57,7 +56,6 @@ const IssueCard = ({ report }) => {
                 </div>
             )}
 
-            {/* Title & Description */}
             <div>
                 <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                     {title}
@@ -67,7 +65,6 @@ const IssueCard = ({ report }) => {
                 </p>
             </div>
 
-            {/* Info (Label : Tag Value) */}
             <div className="space-y-2 text-sm">
 
                 <p>
@@ -108,10 +105,8 @@ const IssueCard = ({ report }) => {
 
             </div>
 
-            {/* Divider */}
             <div className="h-px bg-gray-200 dark:bg-gray-700" />
 
-            {/* Actions */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <button

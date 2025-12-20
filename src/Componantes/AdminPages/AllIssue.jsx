@@ -15,7 +15,7 @@ const AllIssue = () => {
 
     const fetchReports = async () => {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/reports`)
-        setReports(res.data)
+        setReports(res.data.reports)
     }
 
     const fetchStaff = async () => {

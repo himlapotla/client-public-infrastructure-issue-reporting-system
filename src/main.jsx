@@ -24,6 +24,9 @@ import Home from './Componantes/MainComponents/Home.jsx';
 import UserProfile from './Componantes/UserPages/UserProfile.jsx';
 import ManageUser from './Componantes/AdminPages/ManageUser.jsx';
 import Payments from './Componantes/AdminPages/Payments.jsx';
+import Statics from './Componantes/UserPages/Statics.jsx';
+import AdminStatics from './Componantes/AdminPages/AdminStatics.jsx';
+import StaffStatic from './Componantes/StaffPages.jsx/StaffStatic.jsx';
 
 const router = createBrowserRouter([
   {
@@ -58,25 +61,30 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashboardLayout> </DashboardLayout>,
+    element: <PrivateRoute> <DashboardLayout> </DashboardLayout> </PrivateRoute>,
     children: [
 
       // admin's routes.............................
       {
         path: 'Manage-staff',
-        element: <ManageStaff> </ManageStaff>
+        element: <PrivateRoute> <ManageStaff> </ManageStaff> </PrivateRoute>
       },
       {
         path:'All-issues',
-        element: <AllIssue> </AllIssue>
+        element: <PrivateRoute> <AllIssue> </AllIssue> </PrivateRoute>
       },
       {
         path: 'Manage-user',
-        element: <ManageUser> </ManageUser>
+        element: <PrivateRoute> <ManageUser> </ManageUser> </PrivateRoute>
       },
       {
         path: 'All-payments',
-        element: <Payments> </Payments>
+        element: <PrivateRoute> <Payments> </Payments> </PrivateRoute>
+      },
+      {
+        // path: 'admin-statics',
+        index: true,
+        element: <AdminStatics> </AdminStatics>
       },
 
 
@@ -87,22 +95,32 @@ const router = createBrowserRouter([
       },
       {
         path: 'All-my-issues',
-        element: <MyIssue> </MyIssue>
+        element: <PrivateRoute> <MyIssue> </MyIssue> </PrivateRoute>
       },
       {
         path: 'user-profile',
-        element: <UserProfile> </UserProfile>
+        element: <PrivateRoute> <UserProfile> </UserProfile> </PrivateRoute>
+      },
+      {
+        // path: 'user-statics',
+        index: true,
+        element: <Statics> </Statics>
       },
 
 
       //staff's from here.............................................
       {
         path: 'All-assigned-issues',
-        element: <AllAssignedIssues> </AllAssignedIssues>
+        element: <PrivateRoute> <AllAssignedIssues> </AllAssignedIssues> </PrivateRoute>
       },
       {
         path: 'user-profile',
-        element: <UserProfile> </UserProfile>
+        element: <PrivateRoute> <UserProfile> </UserProfile> </PrivateRoute>
+      },
+      {
+        // path: 'staff-static',
+        index: true,
+        element: <StaffStatic> </StaffStatic>
       }
     ]
   }

@@ -149,7 +149,7 @@ const MyIssue = () => {
     <div>
 
       <div className="flex gap-4 mb-4">
-        {/* Status Filter */}
+        
         <select
           className="select select-bordered"
           value={statusFilter}
@@ -161,7 +161,6 @@ const MyIssue = () => {
           <option value="resolved">Resolved</option>
         </select>
 
-        {/* Category Filter */}
         <select
           className="select select-bordered"
           value={categoryFilter}
@@ -176,7 +175,6 @@ const MyIssue = () => {
           <option value="Garbage"> Garbage </option>
         </select>
 
-        {/* Reset Button */}
         <button
           className="btn"
           onClick={() => {
@@ -234,7 +232,7 @@ const MyIssue = () => {
       </table>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+        <div className="fixed inset-0 bg-opacity-40 flex items-center justify-center">
           <div className="bg-white p-5 rounded w-96">
             <h3 className="text-lg font-bold mb-3">Edit Issue</h3>
 

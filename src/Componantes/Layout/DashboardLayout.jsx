@@ -6,19 +6,37 @@ import Sidebar from './Sidebar'
 
 const DashboardLayout = () => {
   return (
-    <div className='space-y-12 '>
-        <Navbar> </Navbar>
+    <div className="space-y-8 sm:space-y-12">
+      <Navbar />
 
-        <div className='flex w-11/12 mx-auto gap-5 '>
-          <div className=''>
-            <Sidebar> </Sidebar>
-          </div>
-          <div className='w-full min-h-screen bg-amber-200 p-5 rounded-2xl'>
-            <Outlet> </Outlet>
-          </div>
+      {/* Main Content */}
+      <div className="
+        flex flex-col lg:flex-row
+        w-full lg:w-11/12
+        mx-auto
+        gap-4 lg:gap-5
+        px-3 lg:px-0
+      ">
+        {/* Sidebar */}
+        <div className="
+          w-full lg:w-1/4
+        ">
+          <Sidebar />
         </div>
 
-        <Footer> </Footer>
+        {/* Outlet Content */}
+        <div className="
+          w-full
+          min-h-screen
+          bg-amber-200
+          p-4 sm:p-5
+          rounded-2xl
+        ">
+          <Outlet />
+        </div>
+      </div>
+
+      <Footer />
     </div>
   )
 }
