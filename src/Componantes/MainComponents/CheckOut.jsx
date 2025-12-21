@@ -1,10 +1,13 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { useContext } from "react";
 import { toast } from "react-toastify";
+import { AllContext } from "../Provider/AuthProvider";
 
 const CheckOut = ({ clientSecret, userEmail, onSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const { user } = useContext(AllContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,13 +29,20 @@ const CheckOut = ({ clientSecret, userEmail, onSuccess }) => {
     }
 
     if (paymentIntent.status === "succeeded") {
-      // ✅ make user premium
+
       await axios.patch(
         `${import.meta.env.VITE_API_URL}/users/premium`,
-        { email: userEmail }
+        { email: user.email }
       );
 
-      toast.success("Subscription successful 🎉");
+      toast.success("Subscription successful. Please reload the page.. ");
+      await axios.post(`${import.meta.env.VITE_API_URL}/save-payment`, {
+        email: user.email,
+        amount: paymentIntent.amount,
+        type: "subscription",
+        user: user.email,
+        transactionId: paymentIntent.id
+      });
       onSuccess();
     }
   };

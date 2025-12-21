@@ -191,17 +191,24 @@ const UserProfile = () => {
                 </div>
             </div>
 
-
             {clientSecret && (
                 <div className="mt-4">
                     <Elements stripe={stripePromise}>
                         <CheckOut
                             clientSecret={clientSecret}
                             onSuccess={async () => {
-                                await axios.patch(
-                                    `${import.meta.env.VITE_API_URL}/users/premium`,
-                                    { email: user.email }
-                                );
+                                // await axios.patch(
+                                //     `${import.meta.env.VITE_API_URL}/users/premium`,
+                                //     { email: user.email }
+                                // );
+                                
+                                // await axios.post(`${import.meta.env.VITE_API_URL}/save-payment`, {
+                                //     email: user.email,
+                                //     amount: paymentIntent.amount,
+                                //     type: "subscription",
+                                //     issueId,
+                                //     transactionId: paymentIntent.id
+                                // });
                                 toast.success("Subscription successful. Please reload the page.");
                                 setClientSecret(null);
                             }}
