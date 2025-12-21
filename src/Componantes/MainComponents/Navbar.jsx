@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const Navbar = () => {
 
-    const { user, logOutt, changeColor, color } = useContext(AllContext)
+    const { user, logOutt, changeColor, role, color } = useContext(AllContext)
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
     const [photo, setPhoto] = useState(null)
@@ -17,6 +17,21 @@ const Navbar = () => {
     const links = <>
         <Link to={'/'}> <p className='font-semibold text-'>Home</p> </Link>
         <Link to={'/allIssues'}> <p className='font-semibold text-'>All Issues</p> </Link>
+
+        {role == 'citizen' &&
+        <> <Link to={'/dashboard/Report-issue'}> <p className='font-semibold text-'>Report An Issue</p> </Link>
+        <Link to={'/dashboard/All-my-issues'}> <p className='font-semibold text-'>All My Issues</p> </Link> </>
+        }
+
+        {role == 'staff' &&
+        <> <Link to={'/dashboard/All-assigned-issues'}> <p className='font-semibold text-'>All Assigned Issues</p> </Link>
+        <Link to={'/dashboard'}> <p className='font-semibold text-'>All Tasks</p> </Link> </>
+        }
+
+        {role == 'admin' &&
+        <> <Link to={'/dashboard/Manage-user'}> <p className='font-semibold text-'>Manage User</p> </Link>
+        <Link to={'/dashboard/Manage-staff'}> <p className='font-semibold text-'>Manage Staff</p> </Link> </>
+        }
     </>
     console.log(photo);
 

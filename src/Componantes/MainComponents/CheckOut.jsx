@@ -36,6 +36,7 @@ const CheckOut = ({ clientSecret, userEmail, onSuccess }) => {
       );
 
       toast.success("Subscription successful. Please reload the page.. ");
+
       await axios.post(`${import.meta.env.VITE_API_URL}/save-payment`, {
         email: user.email,
         amount: paymentIntent.amount,
@@ -43,6 +44,7 @@ const CheckOut = ({ clientSecret, userEmail, onSuccess }) => {
         user: user.email,
         transactionId: paymentIntent.id
       });
+      
       onSuccess();
     }
   };

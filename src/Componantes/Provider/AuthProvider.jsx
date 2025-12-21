@@ -42,6 +42,7 @@ const AuthProvider = ({ children }) => {
         setRole(res.data.role)
     }
     useEffect(() => {
+        setRole(null);
         if (user?.email) {
             roleFinder()
         }
@@ -100,7 +101,7 @@ const AuthProvider = ({ children }) => {
 
         saveOrUpdateUser,
         role,
-        
+
     }
 
     return (

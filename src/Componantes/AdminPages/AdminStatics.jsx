@@ -7,9 +7,13 @@ const AdminStatics = () => {
     const [stats, setStats] = useState({});
     const [loading, setLoading] = useState(true);
 
+    // if(!role) {
+    //     setStats({})
+    // }
     useEffect(() => {
         if (!user?.email || !role) return
 
+        setStats({});
         setLoading(true)
 
         let url = "";
@@ -199,11 +203,6 @@ const AdminStatics = () => {
                 </div>
             </div>
         )
-
-
     }
-
 }
-
-
 export default AdminStatics;

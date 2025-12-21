@@ -3,7 +3,7 @@ The platform ensures transparency, faster response times, and better city servic
 
 ---
 
-Live Website -- https://your-live-site-url.com
+Live Website --  https://clever-ganache-556ffc.netlify.app/
 
 ---
 
@@ -84,13 +84,6 @@ Backend
 
 Payment
 - Stripe
-
----
-
-Notes
-- Environment variables are used to hide Firebase and MongoDB credentials.
-- No Lorem Ipsum text is used anywhere in the project.
-- Private routes remain logged in after page refresh.
 
 ---
 

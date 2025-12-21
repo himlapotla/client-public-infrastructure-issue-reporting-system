@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from '../MainComponents/Navbar'
 import { Outlet } from 'react-router'
 import Footer from '../MainComponents/Footer'
 import Sidebar from './Sidebar'
 
 const DashboardLayout = () => {
+
   return (
     <div className="space-y-8 sm:space-y-12">
       <Navbar />
