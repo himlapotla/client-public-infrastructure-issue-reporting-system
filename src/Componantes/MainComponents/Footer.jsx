@@ -56,7 +56,7 @@ const Footer = () => {
                     <div>
                         <h4 className="font-bold mb-3 text-lg text-white">Contact Info</h4>
                         <ul className="text-white space-y-2 ">
-                            <li>Email: support@TravelEase.com</li>
+                            <li>Email: support@CityFix.com</li>
                             <li>Phone: +880 1234-567890</li>
                             <li>Address: Dhaka, Bangladesh</li>
                             <li>Working Hours: 9 AM – 8 PM</li>
